@@ -1,0 +1,33 @@
+{
+  "name": "serverless-websocket-example",
+  "version": "0.0.1",
+  "description": "WebSocket example using the Serverless Framework.",
+  "devDependencies": {
+    "@anttiviljami/serverless-stack-output": "^0.3.1",
+    "http-server": "^0.11.1",
+    "serverless": "^1.46.0",
+    "serverless-plugin-common-excludes": "^2.4.0",
+    "serverless-plugin-include-dependencies": "^3.2.1",
+    "serverless-stack-output": "^0.2.3"
+  },
+  "scripts": {
+    "sls": "sls",
+    "start": "http-server client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neverendingqs/serverless-websocket-example.git"
+  },
+  "keywords": [
+    "serverless",
+    "serverless framework",
+    "websocket"
+  ],
+  "author": "neverendingqs",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/neverendingqs/serverless-websocket-example/issues"
+  },
+  "homepage": "https://github.com/neverendingqs/serverless-websocket-example#readme"
+}

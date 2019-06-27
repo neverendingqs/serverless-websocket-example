@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <h1>WebSocket Client</h1>
+  <div id="app">
+    <button v-on:click="this.connect">Connect</button>
+    <button v-on:click="this.send">Send</button>
+    <button v-on:click="this.disconnect">Disconnect</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        endpoint: '',
+        websocket: undefined
+      },
+      methods: {
+        connect() {
+          // https://html.spec.whatwg.org/multipage/indices.html#events-2
+          const websocket = this.websocket = new WebSocket(this.endpoint);
+
+          websocket.onclose = ({ wasClean, code, reason }) => {
+            console.log(JSON.stringify({ wasClean, code, reason }));
+          };
+
+          websocket.onerror = error => {
+            console.log(`An error occurred: ${error}`);
+          };
+
+          websocket.onmessage = ({ data }) => {
+            console.log(data);
+          };
+
+          websocket.onopen = () => {
+            console.log(`Connected successfully at ${new Date()}.`);
+          };
+        },
+        send() {
+          this.websocket.send(JSON.stringify({ action: 'test', message: 'hello world' }));
+        },
+        disconnect() {
+          this.websocket.close()
+        }
+      },
+      async beforeCreate() {
+        const response = await fetch('./data.json');
+        const { ServiceEndpointWebsocket } = await response.json();
+        this.endpoint = ServiceEndpointWebsocket;
+      }
+    })
+  </script>
+</html>

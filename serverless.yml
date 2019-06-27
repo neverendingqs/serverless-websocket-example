@@ -1,0 +1,59 @@
+service: websocket-example
+
+plugins:
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+  - '@anttiviljami/serverless-stack-output'
+
+custom:
+  output:
+    file: ./client/data.json
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DeleteItem
+        - dynamodb:GetItem
+        - dynamodb:Scan
+        - dynamodb:PutItem
+      Resource:
+        Fn::GetAtt:
+          - ConnectionsTable
+          - Arn
+
+functions:
+  websocket:
+    handler: src/websocket.handler
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $default
+      - websocket:
+          route: $disconnect
+    environment:
+      CONNECTIONS_TABLE:
+        Ref: ConnectionsTable
+
+resources:
+  Resources:
+    ConnectionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+        BillingMode: PAY_PER_REQUEST
+        KeySchema:
+          - AttributeName: connectionId
+            KeyType: HASH
+        SSESpecification:
+          SSEEnabled: true
+        TimeToLiveSpecification:
+          AttributeName: ttl
+          Enabled: true
+
