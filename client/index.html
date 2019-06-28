@@ -34,7 +34,10 @@
           };
 
           websocket.onerror = error => {
-            this.messages.push(`onerror:   ${error}`);
+            console.log(error);
+            this.messages.push(
+              'onerror:   An error has occurred. See console for details'
+            );
           };
 
           websocket.onmessage = ({ data }) => {

@@ -6,7 +6,7 @@ const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 const connectionTable = process.env.CONNECTIONS_TABLE;
 
-exports.handler =  async function(event, context) {
+exports.handler = async function(event, context) {
   console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 
   const { body, requestContext: { connectionId, routeKey }} = event;

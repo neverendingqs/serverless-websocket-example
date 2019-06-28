@@ -38,6 +38,9 @@ provider:
           - Arn
 
 functions:
+  authorizer:
+    handler: src/authorizer.handler
+
   broadcast:
     handler: src/broadcast.handler
 
@@ -46,6 +49,18 @@ functions:
     events:
       - websocket:
           route: $connect
+          # Only the '$connect' route supports an authorizer. The other routes
+          # are secured via the connection ID and there it should be handled
+          # like a session ID.
+          authorizer:
+            name: authorizer
+            # See https://serverless.com/framework/docs/providers/aws/events/websocket#using-authorizers
+            # and https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-authorizer.html#cfn-apigatewayv2-authorizer-identitysource
+            # for more details on identitySource.
+            # See https://docs.aws.amazon.com/apigateway/latest/developerguide/request-response-data-mappings.html
+            # for more details on API Gateway mappings.
+            identitySource:
+              - 'route.request.header.X-Forwarded-Proto'
       - websocket:
           route: $default
       - websocket:
