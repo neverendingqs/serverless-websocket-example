@@ -45,14 +45,14 @@
           };
 
           websocket.onopen = () => {
-            this.messages.push(`onopen:    Connected successfully at ${new Date()}.`);
+            this.messages.push('onopen:    Connected successfully.');
           };
         },
         send() {
           // API gateway will route this message to the 'test' route. If that
           // route isn't defined in serverless.yaml, API Gateway will route it
           // to the '$default' route.
-          this.messages.push(`client:    Sending a message at ${new Date()}.`);
+          this.messages.push('client:    Sending a message.');
           this.websocket.send(
             JSON.stringify({ action: 'test', data: 'Hello from client.' })
           );
@@ -60,7 +60,7 @@
         disconnect() {
           // WebSocket sends a message to API Gateway that gets routed to the
           // '$disconnect' route.
-          this.messages.push(`client:    Closing the connection at ${new Date()}.`);
+          this.messages.push('client:    Closing the connection.');
           this.websocket.close();
         }
       },
