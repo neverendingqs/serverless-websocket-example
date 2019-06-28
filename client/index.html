@@ -5,6 +5,7 @@
     <button v-on:click="this.connect">Connect</button>
     <button v-on:click="this.send">Send</button>
     <button v-on:click="this.disconnect">Disconnect</button>
+    <pre>{{ messages.join('\n') }}</pre>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -13,34 +14,46 @@
       el: '#app',
       data: {
         endpoint: '',
+        messages: [],
         websocket: undefined
       },
       methods: {
         connect() {
-          // https://html.spec.whatwg.org/multipage/indices.html#events-2
+          /*
+           * See https://html.spec.whatwg.org/multipage/indices.html#events-2
+           * for details around each WebSocket event type.
+           */
+
+          // WebSocket sends a message to API Gateway on creation that gets
+          // routed to the '$connect' route
           const websocket = this.websocket = new WebSocket(this.endpoint);
 
           websocket.onclose = ({ wasClean, code, reason }) => {
-            console.log(JSON.stringify({ wasClean, code, reason }));
+            this.messages.push(JSON.stringify({ wasClean, code, reason }));
           };
 
           websocket.onerror = error => {
-            console.log(`An error occurred: ${error}`);
+            this.messages.push(`An error occurred: ${error}`);
           };
 
           websocket.onmessage = ({ data }) => {
-            console.log(data);
+            this.messages.push(data);
           };
 
           websocket.onopen = () => {
-            console.log(`Connected successfully at ${new Date()}.`);
+            this.messages.push(`Connected successfully at ${new Date()}.`);
           };
         },
         send() {
-          this.websocket.send(JSON.stringify({ action: 'test', message: 'hello world' }));
+          // API gateway will route this message to the 'test' route. If that
+          // route isn't defined in serverless.yaml, API Gateway will route it
+          // to the '$default' route.
+          this.websocket.send({ action: 'test', message: 'hello world' });
         },
         disconnect() {
-          this.websocket.close()
+          // WebSocket sends a message to API Gateway that gets routed to the
+          // '$disconnect' route.
+          this.websocket.close();
         }
       },
       async beforeCreate() {
