@@ -11,6 +11,11 @@ custom:
 
 provider:
   name: aws
+
+  # If you use a lower runtime (e.g. nodejs8.10), you have to bundle your own
+  # 'aws-sdk', as ApiGatewayManagementApi was not introduced until
+  # aws-sdk@2.379.0. See https://github.com/aws/aws-sdk-js/issues/2520#issuecomment-476723105
+  # for details.
   runtime: nodejs10.x
 
   environment:
