@@ -11,6 +11,7 @@
     "serverless-stack-output": "^0.2.3"
   },
   "scripts": {
+    "broadcast": "sls invoke --function broadcast --data '{ \"body\": \"Hello from server\" }'",
     "sls": "sls",
     "start": "http-server client",
     "test": "echo \"Error: no test specified\" && exit 1"

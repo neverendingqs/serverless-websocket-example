@@ -8,6 +8,7 @@ const connectionTable = process.env.CONNECTIONS_TABLE;
 
 exports.handler =  async function(event, context) {
   console.log("EVENT: \n" + JSON.stringify(event, null, 2));
+
   const { body, requestContext: { connectionId, routeKey }} = event;
   switch(routeKey) {
     case '$connect':
@@ -33,7 +34,7 @@ exports.handler =  async function(event, context) {
     default:
       await apig.postToConnection({
         ConnectionId: connectionId,
-        Data: body
+        Data: `Received: ${body}`
       }).promise();
   }
 

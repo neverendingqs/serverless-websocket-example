@@ -51,7 +51,7 @@
           // to the '$default' route.
           this.messages.push(`client:    Sending a message at ${new Date()}.`);
           this.websocket.send(
-            JSON.stringify({ action: 'test', data: 'Hello from the client.' })
+            JSON.stringify({ action: 'test', data: 'Hello from client.' })
           );
         },
         disconnect() {

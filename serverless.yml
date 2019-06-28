@@ -38,6 +38,9 @@ provider:
           - Arn
 
 functions:
+  broadcast:
+    handler: src/broadcast.handler
+
   websocket:
     handler: src/websocket.handler
     events:
