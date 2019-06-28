@@ -1,2 +1,9 @@
-# node-github-template
-Template for node repositories.
+# Serverless WebSocket Example
+
+```sh
+# Deploy to AWS first
+npm run sls -- deploy
+
+# Run the client
+npm start
+```

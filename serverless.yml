@@ -13,6 +13,18 @@ provider:
   name: aws
   runtime: nodejs10.x
 
+  environment:
+    APIG_ENDPOINT:
+      Fn::Join:
+        - ''
+        - - Ref: WebsocketsApi
+          - .execute-api.
+          - Ref: AWS::Region
+          - .amazonaws.com/
+          - ${opt:stage}
+    CONNECTIONS_TABLE:
+      Ref: ConnectionsTable
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -35,9 +47,6 @@ functions:
           route: $default
       - websocket:
           route: $disconnect
-    environment:
-      CONNECTIONS_TABLE:
-        Ref: ConnectionsTable
 
 resources:
   Resources:

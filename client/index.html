@@ -29,33 +29,41 @@
           const websocket = this.websocket = new WebSocket(this.endpoint);
 
           websocket.onclose = ({ wasClean, code, reason }) => {
-            this.messages.push(JSON.stringify({ wasClean, code, reason }));
+            this.messages.push(
+              `onclose:   ${JSON.stringify({ wasClean, code, reason })}`);
           };
 
           websocket.onerror = error => {
-            this.messages.push(`An error occurred: ${error}`);
+            this.messages.push(`onerror:   ${error}`);
           };
 
           websocket.onmessage = ({ data }) => {
-            this.messages.push(data);
+            this.messages.push(`onmessage: ${data}`);
           };
 
           websocket.onopen = () => {
-            this.messages.push(`Connected successfully at ${new Date()}.`);
+            this.messages.push(`onopen:    Connected successfully at ${new Date()}.`);
           };
         },
         send() {
           // API gateway will route this message to the 'test' route. If that
           // route isn't defined in serverless.yaml, API Gateway will route it
           // to the '$default' route.
-          this.websocket.send({ action: 'test', message: 'hello world' });
+          this.messages.push(`client:    Sending a message at ${new Date()}.`);
+          this.websocket.send(
+            JSON.stringify({ action: 'test', data: 'Hello from the client.' })
+          );
         },
         disconnect() {
           // WebSocket sends a message to API Gateway that gets routed to the
           // '$disconnect' route.
+          this.messages.push(`client:    Closing the connection at ${new Date()}.`);
           this.websocket.close();
         }
       },
+
+      // Discover what the WebSocket endpoint is. This implementation is for
+      // demo purposes only and should be done differently in production.
       async beforeCreate() {
         const response = await fetch('./data.json');
         const { ServiceEndpointWebsocket } = await response.json();
