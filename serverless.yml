@@ -53,6 +53,7 @@ functions:
     handler: src/websocket.handler
     events:
       - websocket:
+          # Handles new connection requests
           route: $connect
           # Only the '$connect' route supports an authorizer. The other routes
           # are secured via the connection ID and there it should be handled
@@ -66,9 +67,13 @@ functions:
             # for more details on API Gateway mappings.
             identitySource:
               - 'route.request.header.X-Forwarded-Proto'
+
       - websocket:
+          # Handles all unrouted messages
           route: $default
+
       - websocket:
+          # Handles disconnect messages
           route: $disconnect
 
 resources:
