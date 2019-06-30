@@ -31,6 +31,7 @@ exports.handler = async function(event, context) {
       }).promise();
       break;
 
+    case '$default':
     default:
       await apig.postToConnection({
         ConnectionId: connectionId,
