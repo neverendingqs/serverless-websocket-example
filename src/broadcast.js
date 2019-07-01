@@ -36,6 +36,8 @@ async function getAllConnections(ExclusiveStartKey) {
 }
 
 exports.handler = async function(event, context) {
+  // For debug purposes only.
+  // You should not log any sensitive information in production.
   console.log("EVENT: \n" + JSON.stringify(event, null, 2));
 
   const { body } = event;
