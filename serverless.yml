@@ -72,9 +72,9 @@ functions:
               - 'route.request.header.X-Forwarded-Proto'
 
       - websocket:
-          # Messages are routed here if the $request.body.action is 'routeA'.
-          # You can use 'websocketsApiRouteSelectionExpression' to adjust how
-          # messages are routed.
+          # Route messages here if '$request.body.action' is 'routeA'.
+          # You can adjust which property to use for routing by adjusting
+          # 'websocketsApiRouteSelectionExpression'.
           route: routeA
 
       - websocket:

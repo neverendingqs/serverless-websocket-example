@@ -18,9 +18,8 @@ exports.handler = async function(event, context) {
         TableName: connectionTable,
         Item: {
           connectionId,
-          // Automatically expire the connection an hour later. This is
-          // optional, but recommended. You will have to decide how often to
-          // time out and/or refresh the ttl.
+          // Expire the connection an hour later. This is optional, but recommended.
+          // You will have to decide how often to time out and/or refresh the ttl.
           ttl: parseInt((Date.now() / 1000) + 3600)
         }
       }).promise();
@@ -48,7 +47,8 @@ exports.handler = async function(event, context) {
       }).promise();
   }
 
-  // A 200 status tells API Gateway the message was received successfully, and
-  // API Gateway lets the client know as well.
+  // Return a 200 status to tell API Gateway the message was processed
+  // successfully.
+  // Otherwise, API Gateway will return a 500 to the client.
   return { statusCode: 200 };
 }
