@@ -31,11 +31,18 @@ exports.handler = async function(event, context) {
       }).promise();
       break;
 
+    case 'routeA':
+      await apig.postToConnection({
+        ConnectionId: connectionId,
+        Data: `Received on routeA: ${body}`
+      }).promise();
+      break;
+
     case '$default':
     default:
       await apig.postToConnection({
         ConnectionId: connectionId,
-        Data: `Received: ${body}`
+        Data: `Received on $default: ${body}`
       }).promise();
   }
 

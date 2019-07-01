@@ -49,12 +49,17 @@
           };
         },
         send() {
-          // API gateway will route this message to the 'test' route. If that
-          // route isn't defined in serverless.yaml, API Gateway will route it
-          // to the '$default' route.
           this.messages.push('client:    Sending a message.');
+
           this.websocket.send(
-            JSON.stringify({ action: 'test', data: 'Hello from client.' })
+            // This message will be routed to 'routeA' based on the 'action'
+            // property
+            JSON.stringify({ action: 'routeA', data: 'Hello from client.' })
+          );
+          this.websocket.send(
+            // This message will be routed to the '$default' route as 'routeB'
+            // has not been defined
+            JSON.stringify({ action: 'routeB', data: 'Hello from client.' })
           );
         },
         disconnect() {

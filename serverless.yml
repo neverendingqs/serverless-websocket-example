@@ -8,6 +8,7 @@ plugins:
 custom:
   output:
     file: ./client/data.json
+  stage: ${opt:stage, 'dev'}
 
 provider:
   name: aws
@@ -26,7 +27,7 @@ provider:
           - .execute-api.
           - Ref: AWS::Region
           - .amazonaws.com/
-          - ${opt:stage}
+          - ${self:custom.stage}
     CONNECTIONS_TABLE:
       Ref: ConnectionsTable
 
@@ -49,6 +50,8 @@ functions:
   broadcast:
     handler: src/broadcast.handler
 
+  # See https://serverless.com/framework/docs/providers/aws/events/websocket/
+  # for full details
   websocket:
     handler: src/websocket.handler
     events:
@@ -67,6 +70,12 @@ functions:
             # for more details on API Gateway mappings.
             identitySource:
               - 'route.request.header.X-Forwarded-Proto'
+
+      - websocket:
+          # Messages are routed here if the $request.body.action is 'routeA'.
+          # You can use 'websocketsApiRouteSelectionExpression' to adjust how
+          # messages are routed.
+          route: routeA
 
       - websocket:
           # Handles all unrouted messages
