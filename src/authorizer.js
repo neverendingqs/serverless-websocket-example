@@ -12,10 +12,6 @@ function createAuthorizedResponse(resource) {
   };
 }
 
-function createUnauthorizedResponse() {
-  return 'Unauthorized';
-}
-
 exports.handler = async function(event, context) {
   // For debug purposes only.
   // You should not log any sensitive information in production.
@@ -28,6 +24,6 @@ exports.handler = async function(event, context) {
   if(headers['X-Forwarded-Proto'] === 'https') {
     return createAuthorizedResponse(methodArn);
   } else {
-    return createUnauthorizedResponse();
+    throw new Error('Unauthorized');
   }
 }
