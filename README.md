@@ -1,5 +1,7 @@
 # Serverless WebSocket Example
 
+A simple WebSocket application.
+
 ```sh
 # Deploy to AWS first
 npm run sls -- deploy
