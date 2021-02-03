@@ -59,7 +59,7 @@ functions:
           # Handles new connection requests
           route: $connect
           # Only the '$connect' route supports an authorizer. The other routes
-          # are secured via the connection ID and there it should be handled
+          # are secured via the connection ID and therefore it should be handled
           # like a session ID.
           authorizer:
             name: authorizer
