@@ -1,7 +1,7 @@
 name: Scheduled Node Dependencies Update (npm)
 on:
   schedule:
-    - cron:  '0 15 * * 2'
+    - cron:  '0 15 1 * *'
   workflow_dispatch:
 jobs:
   update-deps:
