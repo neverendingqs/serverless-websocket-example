@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: git branch
       - run: git remote -v
+      - run: git symbolic-ref refs/remotes/origin/HEAD
       - uses: neverendingqs/gh-action-node-update-deps@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
