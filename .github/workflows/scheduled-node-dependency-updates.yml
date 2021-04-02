@@ -13,3 +13,4 @@ jobs:
       - uses: neverendingqs/gh-action-node-update-deps@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HUB_VERBOSE: 1
