@@ -13,6 +13,7 @@ jobs:
       - run: git branch
       - run: git remote -v
       - run: git remote show origin
+      - run: git fetch
       - run: git symbolic-ref refs/remotes/origin/HEAD
       - uses: neverendingqs/gh-action-node-update-deps@master
         env:
