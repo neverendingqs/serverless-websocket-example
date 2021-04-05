@@ -10,11 +10,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: git branch
-      - run: git remote -v
-      - run: git remote show origin
-      - run: git fetch
       - uses: neverendingqs/gh-action-node-update-deps@fix/lookupdefaultbranch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HUB_VERBOSE: 1
