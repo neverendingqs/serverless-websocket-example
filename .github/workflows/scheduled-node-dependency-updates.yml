@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: neverendingqs/gh-action-node-update-deps@fix/lookupdefaultbranch
+      - uses: neverendingqs/gh-action-node-update-deps@0cba95f3d07e4a92741250d4aa1e3c23be5e8b4c
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
