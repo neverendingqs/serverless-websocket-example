@@ -13,3 +13,5 @@ jobs:
       - uses: neverendingqs/gh-action-node-update-deps@fix/lookupdefaultbranch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          pull-request-labels: 'a,b'
