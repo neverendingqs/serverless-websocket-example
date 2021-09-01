@@ -4,10 +4,10 @@
   "description": "WebSocket example using the Serverless Framework.",
   "devDependencies": {
     "@anttiviljami/serverless-stack-output": "^0.3.1",
-    "http-server": "^0.12.3",
-    "serverless": "^2.33.1",
-    "serverless-plugin-common-excludes": "^3.0.1",
-    "serverless-plugin-include-dependencies": "^4.1.0",
+    "http-server": "^13.0.1",
+    "serverless": "^2.57.0",
+    "serverless-plugin-common-excludes": "^4.0.0",
+    "serverless-plugin-include-dependencies": "^5.0.0",
     "serverless-stack-output": "^0.2.3"
   },
   "scripts": {
